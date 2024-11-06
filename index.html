@@ -105,9 +105,9 @@
     
     <!-- Botones de redes sociales -->
     <div class="social-buttons">
-      <button class="social-button" onclick="seguirRedSocial('Tik Tok', 'https://www.instagram.com/streetking.cpm', this)">Instagram</button>
+      <button class="social-button" onclick="seguirRedSocial('Instagram', 'https://www.instagram.com/streetking.cpm', this)">Instagram</button>
       <button class="social-button" onclick="seguirRedSocial('YouTube', 'https://youtube.com/@corridos_belico?si=kpTJT4clCWNAJHNf', this)">YouTube</button>
-      <button class="social-button" onclick="seguirRedSocial('Facebook', 'https://www.tiktok.com/@elchakal368?_t=8r9zw4TsKkB&_r=1', this)">Tik Tok</button>
+      <button class="social-button" onclick="seguirRedSocial('Tik Tok', 'https://www.tiktok.com/@elchakal368?_t=8r9zw4TsKkB&_r=1', this)">Tik Tok</button>
     </div>
     
     <!-- Barra de progreso -->
@@ -129,20 +129,16 @@
   <script>
     const cuentasDisponibles = [
       { usuario: 'FREECUENTACPM1BD@gmail.com', contraseña: '1BD.SHOP' },
-      { usuario: 'CUENTAFULLN21BD@gmail.com', contraseña: '1BD.SHOP' }
-            { usuario: 'CUENTAFULLFREE31BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                  { usuario: '', contraseña: '1BD.SHOP' }
-                        { usuario: 'CUENTAFULLFREE41BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                              { usuario: 'CUENTAFULLFREE51BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                                    { usuario: 'CUENTAFULLFREE61BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                                          { usuario: 'CUENTAFULLFREE51BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                                                { usuario: 'CUENTAFULLFREE61BD@GMAIL.COM', contraseña: '1BD.SHOP' }
-                                                      { usuario: 'CUENTAFULLFREE1BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+      { usuario: 'CUENTAFULLN21BD@gmail.com', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLFREE31BD@GMAIL.COM', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLFREE41BD@GMAIL.COM', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLFREE51BD@GMAIL.COM', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLFREE61BD@GMAIL.COM', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLFREE1BD@GMAIL.COM', contraseña: '1BD.SHOP' }
     ];
 
     let redesSeguidas = 0;
 
-    // Función para abrir red social y cambiar el estado del botón
     function seguirRedSocial(red, url, boton) {
       window.open(url, '_blank');
       boton.classList.add('seguido');
@@ -156,21 +152,15 @@
       }
     }
 
-    // Verifica si el usuario ya generó una cuenta
     const ultimaGeneracion = localStorage.getItem('ultimaGeneracion');
     if (ultimaGeneracion && (Date.now() - parseInt(ultimaGeneracion)) < 7 * 24 * 60 * 60 * 1000) {
       alert("Sigue todos los pasos");
     }
 
-    // Función para generar cuenta
     function generarCuenta() {
       if (cuentasDisponibles.length === 0) {
         document.getElementById('accountBox').style.display = 'block';
         document.getElementById('noAccountsMessage').style.display = 'block';
-        document.getElementById('usuarioBox').style.display = 'none';
-        document.getElementById('contraseñaBox').style.display = 'none';
-        document.getElementById('usuarioCopyButton').style.display = 'none';
-        document.getElementById('contraseñaCopyButton').style.display = 'none';
         return;
       }
       
@@ -182,12 +172,10 @@
       document.getElementById('contraseñaBox').innerText = `Contraseña: ${cuenta.contraseña}`;
       document.getElementById('usuarioCopyButton').style.display = 'block';
       document.getElementById('contraseñaCopyButton').style.display = 'block';
-      document.getElementById('noAccountsMessage').style.display = 'none';
       document.getElementById('generateButton').disabled = true;
       document.getElementById('generateButton').innerText = 'Ya has generado una cuenta';
     }
 
-    // Función para copiar texto
     function copiarTexto(elementoId) {
       const texto = document.getElementById(elementoId).innerText.split(": ")[1];
       navigator.clipboard.writeText(texto).then(() => {
