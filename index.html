@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generador de Cuentas - Car Parking Multiplayer</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .container {
+      text-align: center;
+      max-width: 350px;
+      width: 90%;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #000;
+    }
+    h1 {
+      color: #ff0000;
+      font-size: 1.8em;
+      margin-bottom: 15px;
+    }
+    .instructions {
+      font-size: 0.9em;
+      margin-bottom: 10px;
+    }
+    .social-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 20px 0;
+    }
+    .social-button {
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      width: 80%;
+      margin: 0 auto;
+    }
+    .social-button.seguido {
+      background-color: #2F5E00;
+    }
+    .generate-button {
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 12px;
+      margin-top: 20px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 15px;
+      display: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .generate-button:hover {
+      background-color: #000;
+    }
+    .account-box {
+      background-color: #000;
+      padding: 15px;
+      margin-top: 20px;
+      color: #ff0000;
+      border-radius: 8px;
+    }
+    .account-info {
+      margin: 10px 0;
+    }
+    .copy-button {
+      background-color: #ff0000;
+      color: #fff;
+      border: none;
+      padding: 8px;
+      margin-top: 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      width: 80%;
+      margin: 5px auto;
+    }
+    .progress-bar {
+      margin-top: 10px;
+      font-size: 0.85em;
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Generador de Cuentas</h1>
+    <p class="instructions">Sigue nuestras redes sociales para desbloquear el generador.</p>
+    
+    <!-- Botones de redes sociales -->
+    <div class="social-buttons">
+      <button class="social-button" onclick="seguirRedSocial('Tik Tok', 'https://www.instagram.com/streetking.cpm', this)">Instagram</button>
+      <button class="social-button" onclick="seguirRedSocial('YouTube', 'https://youtube.com/@corridos_belico?si=kpTJT4clCWNAJHNf', this)">YouTube</button>
+      <button class="social-button" onclick="seguirRedSocial('Facebook', 'https://www.tiktok.com/@elchakal368?_t=8r9zw4TsKkB&_r=1', this)">Tik Tok</button>
+    </div>
+    
+    <!-- Barra de progreso -->
+    <div class="progress-bar" id="progressBar">Redes seguidas: 0/3</div>
+    
+    <!-- Botón de generar cuenta -->
+    <button id="generateButton" class="generate-button" onclick="generarCuenta()">Generar Cuenta</button>
+    
+    <!-- Área de cuenta generada -->
+    <div id="accountBox" class="account-box" style="display: none;">
+      <div id="usuarioBox" class="account-info"></div>
+      <button id="usuarioCopyButton" class="copy-button" onclick="copiarTexto('usuarioBox')" style="display: none;">Copiar Usuario</button>
+      <div id="contraseñaBox" class="account-info"></div>
+      <button id="contraseñaCopyButton" class="copy-button" onclick="copiarTexto('contraseñaBox')" style="display: none;">Copiar Contraseña</button>
+      <p id="noAccountsMessage" style="display: none;">No hay cuentas disponibles en este momento. Vuelve a intentarlo en 1 hora.</p>
+    </div>
+  </div>
+
+  <script>
+    const cuentasDisponibles = [
+      { usuario: 'FREECUENTACPM1BD@gmail.com', contraseña: '1BD.SHOP' },
+      { usuario: 'CUENTAFULLN21BD@gmail.com', contraseña: '1BD.SHOP' }
+            { usuario: 'CUENTAFULLFREE31BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                  { usuario: '', contraseña: '1BD.SHOP' }
+                        { usuario: 'CUENTAFULLFREE41BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                              { usuario: 'CUENTAFULLFREE51BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                                    { usuario: 'CUENTAFULLFREE61BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                                          { usuario: 'CUENTAFULLFREE51BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                                                { usuario: 'CUENTAFULLFREE61BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+                                                      { usuario: 'CUENTAFULLFREE1BD@GMAIL.COM', contraseña: '1BD.SHOP' }
+    ];
+
+    let redesSeguidas = 0;
+
+    // Función para abrir red social y cambiar el estado del botón
+    function seguirRedSocial(red, url, boton) {
+      window.open(url, '_blank');
+      boton.classList.add('seguido');
+      redesSeguidas++;
+      document.getElementById('progressBar').innerText = `Redes seguidas: ${redesSeguidas}/3`;
+      if (redesSeguidas === 3) {
+        document.querySelector('.instructions').style.display = 'none';
+        document.querySelector('.social-buttons').style.display = 'none';
+        document.getElementById('generateButton').style.display = 'block';
+        document.getElementById('progressBar').style.display = 'none';
+      }
+    }
+
+    // Verifica si el usuario ya generó una cuenta
+    const ultimaGeneracion = localStorage.getItem('ultimaGeneracion');
+    if (ultimaGeneracion && (Date.now() - parseInt(ultimaGeneracion)) < 7 * 24 * 60 * 60 * 1000) {
+      alert("Sigue todos los pasos");
+    }
+
+    // Función para generar cuenta
+    function generarCuenta() {
+      if (cuentasDisponibles.length === 0) {
+        document.getElementById('accountBox').style.display = 'block';
+        document.getElementById('noAccountsMessage').style.display = 'block';
+        document.getElementById('usuarioBox').style.display = 'none';
+        document.getElementById('contraseñaBox').style.display = 'none';
+        document.getElementById('usuarioCopyButton').style.display = 'none';
+        document.getElementById('contraseñaCopyButton').style.display = 'none';
+        return;
+      }
+      
+      localStorage.setItem('ultimaGeneracion', Date.now());
+
+      const cuenta = cuentasDisponibles.shift();
+      document.getElementById('accountBox').style.display = 'block';
+      document.getElementById('usuarioBox').innerText = `Usuario: ${cuenta.usuario}`;
+      document.getElementById('contraseñaBox').innerText = `Contraseña: ${cuenta.contraseña}`;
+      document.getElementById('usuarioCopyButton').style.display = 'block';
+      document.getElementById('contraseñaCopyButton').style.display = 'block';
+      document.getElementById('noAccountsMessage').style.display = 'none';
+      document.getElementById('generateButton').disabled = true;
+      document.getElementById('generateButton').innerText = 'Ya has generado una cuenta';
+    }
+
+    // Función para copiar texto
+    function copiarTexto(elementoId) {
+      const texto = document.getElementById(elementoId).innerText.split(": ")[1];
+      navigator.clipboard.writeText(texto).then(() => {
+        alert(`${elementoId === 'usuarioBox' ? 'Usuario' : 'Contraseña'} copiado`);
+      });
+    }
+  </script>
+</body>
+</html>
